@@ -1,12 +1,11 @@
 import React from "react";
 
-const ErrorModal = React.memo((props) => {
-  console.log("RENDERING ErrorModal");
+const Modal = React.memo((props) => {
   return (
     <React.Fragment>
       <div className="backdrop" onClick={props.onClose} />
       <div className="modal">
-        <p>{props.children}</p>
+        {props.children}
         <div className="modal__actions">
           <button type="button" className="btn" onClick={props.onClose}>
             Okay
@@ -17,4 +16,4 @@ const ErrorModal = React.memo((props) => {
   );
 });
 
-export default ErrorModal;
+export default Modal;

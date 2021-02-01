@@ -32,7 +32,7 @@ body {
     padding: 0;
   }
   font-family: $font-primary;
-  background-color: #efeef4;
+  background-color: white;
 }
 
 nav {
@@ -45,4 +45,10 @@ main {
   font-size: $default-font-size;
   font-weight: normal;
   margin: 0 auto;
+  max-width: 100rem;
+}
+
+a {
+  color: $color-primary;
+  text-decoration: none;
 }

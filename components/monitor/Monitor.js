@@ -1,34 +1,69 @@
-import React, {useEffect, useState} from 'react'
-import Card from '../common/Card'
-import MonitorList from './MonitorList';
-import MonitorStat from './MonitorStat';
-import { useMonitorState, useMonitorDispatch, MonitorProvider } from '../../contexts/monitorContext'
-import { getUpDownApi } from '../../actions/hookActions';
+import React, { useEffect } from "react";
+import MonitorList from "./MonitorList";
+import MonitorStat from "./MonitorStat";
+import Modal from "../common/Modal";
+import ErrorModal from "../common/ErrorModal";
+import {
+  useMonitorState,
+  useMonitorDispatch,
+} from "../../contexts/monitorContext";
+import { getUpDownApi } from "../../actions/hookActions";
 
 const Services = () => {
-    const { data, page, total } = useMonitorState();
-    const dispatch = useMonitorDispatch();
-    const setServerError = (isServerError) => 
-        dispatch({ type: "setServerError", payload: isServerError }
-    )
-    const  setData = (data) => {
-        dispatch({ type: "setData", payload: data });
-    }
-    useEffect(() => {
-        // side effect.
-        getUpDownApi(setData, setServerError); 
-    }, [])
+  const { data, error, errorMessage, selectedItem } = useMonitorState();
+  const dispatch = useMonitorDispatch();
+  const setServerError = (isServerError) =>
+    dispatch({ type: "setServerError", payload: isServerError });
+  const setData = (data) => {
+    dispatch({ type: "setData", payload: data });
+  };
+  const setLoading = (status) => {
+    dispatch({ type: "setLoading", payload: status });
+  };
+  const onErrorClear = () => {
+    dispatch({ type: "clearError" });
+  };
+  const onSelectedClear = () => {
+    dispatch({ type: "clearSelected" });
+  };
+  useEffect(() => {
+    // side effect.
+    getUpDownApi(setData, setServerError, setLoading);
+  }, []);
+  console.log(useMonitorState())
+  return (
+    <div data-testid="monitor-app">
+      {errorMessage && <ErrorModal onClose={onErrorClear}>{errorMessage}</ErrorModal>}
+      <div className="title">Monitors</div>
+      <MonitorList data={data} />
+      <div className="title">Overall Uptime</div>
+      <MonitorStat />
+      {selectedItem && (
+        <Modal onClose={onSelectedClear}>
+          <div>
+            {" "}
+            <span>Name : </span>
+            {selectedItem.friendly_name}
+          </div>
+          <div>
+            {" "}
+            <span>Update Intervel : </span> {selectedItem.interval}s
+          </div>
+          <div>
+            {" "}
+            <span>Url : </span>{" "}
+            <a
+              href={selectedItem.url}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              {selectedItem.url}
+            </a>
+          </div>
+        </Modal>
+      )}
+    </div>
+  );
+};
 
-    return (
-        <Card>
-            <h2>Monitors</h2>
-            {console.log(data)}
-            <MonitorList data={data}/>
-            <MonitorStat />
-        </Card>
-    )
-}
-
-export default Services
-
-
+export default Services;

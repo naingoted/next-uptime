@@ -10,6 +10,9 @@ const inititalState = {
   selectedItem: null,
   page: 1,
   total: 0,
+  loading: false,
+  errorMesage: null,
+  error: false,
 };
 
 const monitorReducer = (state, action) => {
@@ -18,10 +21,18 @@ const monitorReducer = (state, action) => {
       return { ...state, data: action.payload };
     case "setSelectedItem":
       return { ...state, selectedItem: action.payload };
+    case "setLoading":
+      return { ...state, loading: action.payload };
     case "setTotal":
       return { ...state, total: action.payload };
     case "setPage":
       return { ...state, page: action.payload };
+    case "setServerError":
+      return { ...state, error: true, errorMessage: action.payload };
+    case "clearError":
+      return { ...state, errorMessage: null };
+    case "clearSelected":
+      return { ...state, selectedItem: null };
     default:
       throw new Error("Should not get there!");
   }

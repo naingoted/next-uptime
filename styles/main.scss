@@ -1,8 +1,7 @@
 @import "base/variables";
 @import "base/mixins";
-@import "components/ui";
+@import "components/common";
 @import "base/base";
 @import "components/header";
-@import "components/movies";
-@import "pages/home"
-
+@import "components/monitor";
+@import "pages/home";

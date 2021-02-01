@@ -1,18 +1,41 @@
 .nav-bar {
-  border-radius: 0 0 5px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.26);
+  background-color: $color-secondary;
   .logo {
-    display: flex;
-    flex-direction: column;
     line-height: 1;
-    max-width: 120rem;
-    margin: 0 auto;
     padding: 1.6rem;
-    span:first-child {
-      color: $color-primary;
+    color: white;
+    font-size: 3rem;
+    @include respond(phone) {
+      font-size: 2rem;
     }
-    span:last-child {
-      color: $color-secondary;
+  }
+  .info {
+    color: white;
+    text-align: right;
+    padding: 1.6rem;
+    &__title {
+      font-size: 1.6rem;
     }
+    &__last-update {
+      font-size: 1.4rem;
+      font-weight: 300;
+    }
+    @include respond(phone) {
+      &__title {
+        font-size: 1.3rem;
+      }
+      &__last-update {
+        font-size: 1.2rem;
+        font-weight: 300;
+      }
+    }
+  }
+  .container {
+    display: flex;
+    justify-content: space-between;
+    margin: 0 auto;
+    align-items: center;
+    max-width: 100rem;
+    padding: 4rem 0 6rem;
   }
 }

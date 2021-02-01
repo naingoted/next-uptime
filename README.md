@@ -2,7 +2,9 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ## Getting Started
 
-First, run the development server:
+First, rename .env.local.example to .env.local
+
+then, run the development server:
 
 ```bash
 npm run dev
@@ -12,7 +14,6 @@ yarn dev
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-## Dir
 
 ### Page list
 
@@ -31,23 +32,28 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
     contexts
 
 ### Testing
+
     integration testing to make sure pagination logic, hooks and context
     __tests__ - for test files
         components - named according to /components structure
             UI
 
 ### Styling
+
     styles - named according to /components structure.
 
 
 ## Preview Link
 
+    https://status-page-tawny.vercel.app/
 
-
-
-## unit test @todo
+## unit test | @todo
 
     onclick -> show quick stats
     reducer
     axios call
     context
+    pagination
+    check re renders / preformance
+
+

@@ -1,29 +1,39 @@
-import axios from 'axios';
+import axios from "axios";
 
-export const getUpDownApi = async (setData, setServerError) => {
-  // Challenge #5: Server Error
-  var data = JSON.stringify({"api_key":"u718169-7e1615cfa3804577ae74d5ba","format":"json","limit":"5","offset":"5"});
+export const getUpDownApi = async (setData, setServerError, setLoading) => {
+  var data = JSON.stringify({
+    api_key: process.env.NEXT_PUBLIC_ENV_UTR,
+    format: "json",
+    limit: "5",
+    offset: "5",
+  });
 
   var config = {
-    method: 'post',
-    url: 'https://api.uptimerobot.com/v2/getMonitors',
-    headers: { 
-      'Content-Type': 'application/json', 
+    method: "post",
+    url: "https://api.uptimerobot.com/v2/getMonitors",
+    headers: {
+      "Content-Type": "application/json",
     },
-    data : data
+    data: data,
   };
-  
+
   try {
+    setLoading(true);
     const response = await axios(config);
-    setData(response.data);
-  }
-  catch {
-    setServerError(true);
+    if (response.data.stat == "fail") {
+      setServerError(response.data.error.message);
+    } else {
+      setData(response.data);
+    }
+    setLoading(false);
+  } catch {
+    setLoading(false);
+    setServerError("Server Error");
   }
   // END: Challenge #5: Server Error
-}
+};
 
 // default export for mocking convenience
 export default {
   getUpDownApi,
-}
+};
